@@ -1,0 +1,106 @@
+@import "tailwindcss";
+
+/* ── Theme: map Tailwind gray tokens to CSS variables ─────────────────────── */
+/* All existing bg-gray-*, text-gray-*, border-gray-* classes pick these up   */
+@theme {
+  --color-gray-950: var(--gray-950);
+  --color-gray-900: var(--gray-900);
+  --color-gray-800: var(--gray-800);
+  --color-gray-700: var(--gray-700);
+  --color-gray-600: var(--gray-600);
+  --color-gray-500: var(--gray-500);
+  --color-gray-400: var(--gray-400);
+  --color-gray-300: var(--gray-300);
+  --color-gray-200: var(--gray-200);
+  --color-gray-100: var(--gray-100);
+  --color-white:    var(--color-white-val);
+}
+
+/* ── Dark theme (default) ─────────────────────────────────────────────────── */
+:root {
+  --gray-950:       #030712;
+  --gray-900:       #111827;
+  --gray-800:       #1f2937;
+  --gray-700:       #374151;
+  --gray-600:       #4b5563;
+  --gray-500:       #6b7280;
+  --gray-400:       #9ca3af;
+  --gray-300:       #d1d5db;
+  --gray-200:       #e5e7eb;
+  --gray-100:       #f3f4f6;
+  --color-white-val:#ffffff;
+  --body-bg:        #030712;
+  --body-color:     #f9fafb;
+  --scrollbar-track:#111827;
+  --scrollbar-thumb:#374151;
+}
+
+/* ── Light theme ─────────────────────────────────────────────────────────────
+   Inverts the gray scale so existing dark-first classes become light-friendly */
+html.light {
+  --gray-950:       #ffffff;
+  --gray-900:       #f8fafc;
+  --gray-800:       #f1f5f9;
+  --gray-700:       #e2e8f0;
+  --gray-600:       #94a3b8;
+  --gray-500:       #64748b;
+  --gray-400:       #475569;
+  --gray-300:       #334155;
+  --gray-200:       #1e293b;
+  --gray-100:       #0f172a;
+  --color-white-val:#0f172a;
+  --body-bg:        #f8fafc;
+  --body-color:     #0f172a;
+  --scrollbar-track:#e2e8f0;
+  --scrollbar-thumb:#94a3b8;
+}
+
+@layer base {
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0; padding: 0; height: 100%;
+    background-color: var(--body-bg);
+    color: var(--body-color);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  #root { height: 100%; }
+
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track  { background: var(--scrollbar-track); }
+  ::-webkit-scrollbar-thumb  { background: var(--scrollbar-thumb); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--gray-500); }
+}
+
+@layer utilities {
+  /* Smooth theme transition on all elements */
+  html.light * { transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease; }
+
+  /* Light mode: inputs need explicit bg */
+  html.light input, html.light select, html.light textarea {
+    color-scheme: light;
+  }
+  html.light input[type="date"] { color-scheme: light; }
+
+  .prose table { border-collapse: collapse; width: 100%; }
+  .prose th, .prose td { border: 1px solid var(--gray-800); padding: 8px 12px; text-align: left; }
+  .prose th { background-color: var(--gray-900); color: var(--gray-200); font-weight: 600; }
+  .prose tr:nth-child(even) td { background-color: var(--gray-950); }
+  .prose pre { background-color: var(--gray-900); border: 1px solid var(--gray-800); border-radius: 8px; padding: 16px; overflow-x: auto; }
+  .prose code { background-color: var(--gray-800); padding: 2px 6px; border-radius: 4px; font-size: 0.875em; color: #c084fc; }
+  .prose pre code { background-color: transparent; padding: 0; color: var(--gray-300); }
+  .prose blockquote { border-left: 4px solid #7c3aed; padding-left: 16px; color: var(--gray-500); font-style: italic; margin: 16px 0; }
+  .prose hr { border-color: var(--gray-800); margin: 24px 0; }
+  .prose ul { list-style-type: disc; padding-left: 1.5rem; }
+  .prose ol  { list-style-type: decimal; padding-left: 1.5rem; }
+  .prose li  { margin: 4px 0; }
+  .prose h1  { font-size: 1.5rem; font-weight: 700; color: var(--body-color); border-bottom: 1px solid var(--gray-800); padding-bottom: 12px; margin-bottom: 24px; margin-top: 0; }
+  .prose h2  { font-size: 1.125rem; font-weight: 600; color: #c084fc; margin-top: 32px; margin-bottom: 12px; }
+  .prose h3  { font-size: 0.9375rem; font-weight: 600; color: var(--gray-200); margin-top: 20px; margin-bottom: 8px; }
+  .prose h4  { font-size: 0.875rem; font-weight: 600; color: var(--gray-300); }
+  .prose p   { color: var(--gray-300); line-height: 1.75; margin: 12px 0; }
+  .prose strong { color: var(--body-color); font-weight: 600; }
+  .prose a   { color: #a78bfa; text-decoration: underline; }
+}
